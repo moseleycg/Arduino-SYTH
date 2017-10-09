@@ -1,0 +1,52 @@
+#include "pitches.h"
+
+int buttonPin = 1; // botão pino de entrada 
+int speakerPin = 2; // pino de saída do alto-falante
+
+int buttonState = 0;
+int beingPressed = 0;
+int state = 0; // 0, 1, 2
+
+// notas para jogar 
+int notes[] = {
+NOTE_C2,
+NOTE_D3
+};
+
+void setup() {
+
+// inicializa o pino LED como uma saída: 
+pinMode(buttonPin, INPUT);
+
+}
+
+void loop() {
+
+// leia o estado do valor do botão 
+buttonState = digitalRead(buttonPin);
+
+if (buttonState == HIGH){
+// isso é verdade apenas para uma vez após o botão ser pressionado 
+if (beingPressed == LOW){
+if (state >= 2) state = 0;
+else state++;
+}
+// esta é a vantagem ascendente do sinal do botão 
+beingPressed = HIGH;
+}
+else {
+// queda do sinal do botão 
+if (beingPressed == HIGH)
+beingPressed = LOW;
+}
+
+if (state == 1)
+tone(speakerPin, notes[0], 10); // param.:(output pin, pitch, duration)
+else if (state == 2)
+tone(speakerPin, notes[1], 10);
+else
+;// DO NOTHING
+
+// dar atraso para permitir que o controlador termine a instrução "tom" 
+delay(10);
+}
