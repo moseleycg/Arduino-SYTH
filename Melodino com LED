@@ -1,0 +1,20 @@
+
+int ledPin1 = 11;                 // LED pin 11 AZUL  
+int ledPin2 = 10;                 // LED pin 10 VERMELHO
+void setup()
+{
+  pinMode(ledPin1, OUTPUT);      // sets the digital pin as output
+  pinMode(ledPin2, OUTPUT);      // sets the digital pin as output
+}
+
+void loop()
+{ 
+  digitalWrite(ledPin1, LOW);    // LED VERMELHO OFF
+  digitalWrite(ledPin1, HIGH);   // LED VERMELHO ON                 
+  tone( 6, 50, 1000);                    // TONE ( PINO , TOM , TEMPO DE EXECUÇÃO)
+  delay(1000);
+  digitalWrite(ledPin1, LOW);    // LED VERMELHO OFF
+  digitalWrite(ledPin2, HIGH);   // LED AZUL ON
+  delay(1000);
+  digitalWrite(ledPin1, LOW);    //  LED AZUL OFF
+}
