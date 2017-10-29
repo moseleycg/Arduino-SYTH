@@ -1,0 +1,43 @@
+int LedPinSaw = 13;
+int LedPinFine = 12;
+int LedPinTime = 11;
+const int buttonPin = 6;
+int buttonState = 0;
+void setup() {
+  Serial.begin(9600);
+  pinMode(LedPinSaw, OUTPUT);
+  pinMode(LedPinFine, OUTPUT);
+  pinMode(LedPinTime, OUTPUT);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  int sensorSaw = analogRead(A0);
+  int sensorFine = analogRead(A0);
+  int sensorTempo = analogRead(A1);  
+  Serial.println(sensorSaw);
+  Serial.println(sensorTempo);
+  int Pitch = map(sensorSaw, 10, 15, 30, 35);
+  int Pitchfine = map(sensorFine, 35, 100, 200, 500);
+  int tempo = map(sensorTempo, 1, 10, 15, 20);
+  pinMode(buttonPin, INPUT);
+    if (buttonState == HIGH) {
+      
+          tone(7, Pitch, 10);
+          delay(sensorTempo); 
+          digitalWrite(LedPinSaw, HIGH);
+          digitalWrite(LedPinFine, LOW);
+  } 
+  
+    else {
+          tone(7, Pitchfine, 10);
+          delay(sensorTempo);
+          digitalWrite(LedPinSaw, LOW);
+          digitalWrite(LedPinFine, HIGH);
+   }   
+
+  digitalWrite(LedPinTime, LOW);  
+  delay(sensorTempo); 
+  digitalWrite(LedPinTime, HIGH);
+  delay(sensorTempo);
+}
